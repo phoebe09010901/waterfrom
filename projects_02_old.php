@@ -37,7 +37,7 @@
 	
 	$row1 = mysql_fetch_array($rl1, MYSQL_ASSOC);	
 	if($id == ""){
-		$id = $row1['id'];	
+		$id = $row1['$id'];	
 	}
 	
 	$title = $row1['title'];
@@ -47,14 +47,7 @@
 		
 	$file1 = $row1['file1'];	
 
-	//$id = $_GET['id'];	
-	$sql1  = "select * from waterfrom_album where ";
-	$sql1 .= "category = '$category' and ";
-	$sql1 .= "pub = 1 and ";	
-	$sql1 .= "lang = 'tw' ";
-	$sql1 .= "order by sort desc";	
-	$rl1 = mysql_query($sql1, $Conn);
-	$tmpC2 = mysql_num_rows($rl1);
+
 ?>
 	
 <!DOCTYPE html>
@@ -97,30 +90,6 @@
     <link rel="stylesheet" type="text/css" href="css_new/1200/style_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
     <link rel="stylesheet" type="text/css" href="css_new/980/style_980.css" media="screen and (max-width: 1200px)">
     
-    <script>
-<?
-	$i = 0;
-	$rl1 = mysql_query($sql1, $Conn);	
-	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){		
-		if($id == $row1['id']){
-			break;
-		}
-		$i++;
-	}
-?>	
-	$(function(){
-		$('.content3').scrollTop($(window).height()/4*<?=$i?>);
-		/*mars 這邊是控制右側十格進場時要跑到哪格*/
-		return false;
-		
-		$(window).resize(function() {
-			$('.content3').scrollTop($(window).height()/4*<?=$i?>);
-			/*mars 這邊是控制右側十格進場時要跑到哪格*/
-			return false;
-		});
-	});
-	</script>
-    
     <!-- menu  -->
     <script>
 		$(document).ready(function(){
@@ -158,12 +127,44 @@
     <!-- menu  -->
     
     <!-- 十格作品小圖 開始 -->
-	<link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900_02.css" media="screen and (min-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200_02.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980_02.css" media="screen and (max-width: 1200px)">
+	<script language="javascript">
+		$(document).ready(function(){
+			if ( $(window).width() >= 1900 ){
+				$.getScript("js_new/1900/project_10_1900.js");
+			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+				$.getScript("js_new/1200/project_10_1200.js");
+				//alert("1900~1200");
+			} else {
+				$.getScript("js_new/980/project_10_980.js");
+			}
+			
+			$(window).resize(function() {
+				if ( $(window).width() >= 1900 ){
+					$.getScript("js_new/1900/project_10_1900.js");
+				} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+					$.getScript("js_new/1200/project_10_1200.js");
+				} else {
+					$.getScript("js_new/980/project_10_980.js");
+				}
+			});
+		});
+    </script>
+    <link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900.css" media="screen and (min-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980.css" media="screen and (max-width: 1200px)">
+	<!-- 十格作品小圖文字動畫 -->
+	<script type="text/javascript">
+        $(document).ready(function(){
+            $('.boxgrid.captionfull').hover(function(){
+                $(".cover", this).stop().animate({top:'0px'},{queue:false,duration:350});
+                }, function() {
+                    $(".cover", this).stop().animate({top:'350px'},{queue:false,duration:350});
+            });	
+        });
+    </script>
     <!-- 十格作品小圖 開始 -->
     
-    <!-- 光箱＋第一層相片漸變 開始 --> 
+    <!-- 光箱 開始 --> 
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
     
@@ -178,9 +179,6 @@
      	
 		if ( $(window).width() >= 1900 ){
 			
-			windowWidth=($(window).height()-80)/4;
-			windowRight=($(window).height()-80)/4+40;
-			
 			$(".flexslider .slides img").animate({
 				height: ($(window).height()-180)+"px",
 				marginTop: "50px"
@@ -189,7 +187,7 @@
 				top: "90px"
 			},0);
 			
-			<?php for($x=1;$x<=$tmpC;$x++){ ?>
+			<?php for($x=1;$x<=6;$x++){ ?>
 			$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
 				opacity:'1'
 			},500);
@@ -216,9 +214,6 @@
 		
 		} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
 			
-			windowWidth=($(window).height()-40)/4;
-			windowRight=($(window).height()-40)/4+28;
-			
 			$(".flexslider .slides img").animate({
 				height: ($(window).height()-90)+"px",
 				marginTop: "30px"
@@ -227,7 +222,7 @@
 				top: "90px"
 			},0);
 			
-			<?php for($x=1;$x<=$tmpC;$x++){ ?>
+			<?php for($x=1;$x<=6;$x++){ ?>
 			$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
 				opacity:'1'
 			},500);
@@ -254,9 +249,6 @@
 			
 		} else {
 			
-			windowWidth='155.75';
-			windowRight='184.75';
-			
 			$(".flexslider .slides img").animate({
 				height: "550px",
 				marginTop: "30px"
@@ -265,7 +257,7 @@
 				top: "90px"
 			},0);
 			
-			<?php for($x=1;$x<=$tmpC;$x++){ ?>
+			<?php for($x=1;$x<=6;$x++){ ?>
 			$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
 				opacity:'1'
 			},500);
@@ -306,159 +298,10 @@
                 top:'-5000px'
             },0);
         });
-		
-		$(".content,.content2,.content3").animate({
-			width:windowWidth+'px'
-		},0);
-		$(".content2").animate({
-			right:windowRight+'px'
-		},0);
-		
-		$(window).resize(function() {
-			
-			if ( $(window).width() >= 1900 ){
-			
-				windowWidth=($(window).height()-80)/4;
-				windowRight=($(window).height()-80)/4+40;
-				
-				$(".flexslider .slides img").animate({
-					height: ($(window).height()-180)+"px",
-					marginTop: "50px"
-				},0);
-				$(".flex-control-nav").animate({
-					top: "90px"
-				},0);
-				
-				<?php for($x=1;$x<=$tmpC;$x++){ ?>
-				$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
-					opacity:'1'
-				},500);
-				<?php } ?>
-				
-				
-				$(".info_02").click(function(){
-					$(".wapper_02").animate({
-						top:'0PX',
-					},0);
-					$(".wapper_02").animate({
-						opacity:'1'
-					},500);
-					
-					//第一個不用管
-					$(".pic_center").animate({
-						top:'50%'
-					},0);
-					$(".pic_center").animate({
-						opacity:'1'
-					},500);
-					//第一個不用管
-				});
-			
-			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
-				
-				windowWidth=($(window).height()-40)/4;
-				windowRight=($(window).height()-40)/4+28;
-				
-				$(".flexslider .slides img").animate({
-					height: ($(window).height()-90)+"px",
-					marginTop: "30px"
-				},0);
-				$(".flex-control-nav").animate({
-					top: "90px"
-				},0);
-				
-				<?php for($x=1;$x<=$tmpC;$x++){ ?>
-				$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
-					opacity:'1'
-				},500);
-				<?php } ?>
-				
-				
-				$(".info_02").click(function(){
-					$(".wapper_02").animate({
-						top:'0px',
-					},0);
-					$(".wapper_02").animate({
-						opacity:'1'
-					},500);
-					
-					//第一個不用管
-					$(".pic_center").animate({
-						top:'50%'
-					},0);
-					$(".pic_center").animate({
-						opacity:'1'
-					},500);
-					//第一個不用管
-				});
-				
-			} else {
-				
-				windowWidth='155.75';
-				windowRight='184.75';
-				
-				$(".flexslider .slides img").animate({
-					height: "550px",
-					marginTop: "30px"
-				},0);
-				$(".flex-control-nav").animate({
-					top: "90px"
-				},0);
-				
-				<?php for($x=1;$x<=$tmpC;$x++){ ?>
-				$(".pic_0<?php echo $x;?>").delay(<?php echo $x;?>000).animate({
-					opacity:'1'
-				},500);
-				<?php } ?>
-				
-				
-				$(".info_02").click(function(){
-					$(".wapper_02").animate({
-						top:'50%',
-					},0);
-					$(".wapper_02").animate({
-						opacity:'1'
-					},500);
-					
-					//第一個不用管
-					$(".pic_center").animate({
-						top:'50%'
-					},0);
-					$(".pic_center").animate({
-						opacity:'1'
-					},500);
-					//第一個不用管
-				});
-	
-			}
-			
-			$(".close").click(function(){
-				$(".wapper_02").animate({
-					opacity:'0'
-				},500);
-				$(".wapper_02").animate({
-					top:'-5000px'
-				},0);
-				$(".pic_center").animate({
-					opacity:'0'
-				},500);
-				$(".pic_center").animate({
-					top:'-5000px'
-				},0);
-			});
-			
-			$(".content,.content2,.content3").animate({
-				width:windowWidth+'px'
-			},0);
-			$(".content2").animate({
-				right:windowRight+'px'
-			},0);
-			
-		});
     
     });
     </script>		
-    <!-- 光箱＋第一層相片漸變  結束 -->
+    <!-- 光箱 結束 -->
     
 </head>
 <body>
@@ -469,90 +312,64 @@
 	<!-- 十格作品 -->
     <div class="project_down"><img src="images/pic_down_02.png" width="100%" height="100%"></div>
     <div class="content3" id="scrollable_div1">
-    	<input value="activate scrollator" id="activate_scrollator1" type="image" src="images/white.png" style="width:0px; height:0px; display:none;">
-
+        <input value="activate scrollator" id="activate_scrollator1" type="image" src="images/white.png" style="width:0px; height:0px; display:none;">
+        <ol class="projects-list">
 <?
+	$category = $_GET['category'];
+	//$id = $_GET['id'];	
+	$sql1  = "select * from waterfrom_album where ";
+	$sql1 .= "category = '$category' and ";
+	$sql1 .= "pub = 1 and ";	
+	$sql1 .= "lang = 'tw' ";
+	$sql1 .= "order by sort desc";	
 	$rl1 = mysql_query($sql1, $Conn);
+	//$row1 = mysql_fetch_array($rl1, MYSQL_ASSOC);	
 	$i = 1;
 	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){	
 		if($id == ""){
 			$id = $row1['id'];
 		}
-		
-		if($id == $row1['id']){
-?>   		
-		<style>
-		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b<?=$i?>:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
-		@media screen and (min-width: 1900px) {
-			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:55px;}
-		}
-		
-		@media screen and (min-width: 1200px) and (max-width: 1900px) {
-			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:40px;}   
-		}
-		
-		@media screen and (max-width: 1200px) {
-			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:30px;}  
-		}
-        </style>
-        <div class="pic_block b<?=$i?>" data-eng="<?=$row1['title']?>" data-zh="<?=$row1['title2']?>"></div>
+?>        
+        
+        <li>
+            <!-- 0<?=$i?>1 --><!-- mars 這格我有設定預設顏色 請留意 style="background-color: #000000; opacity:0.6;" -->
+            <style type="text/css">.project-list-item.project-list-item-ga<?=$row1['id']?> .hover-container:before{background-color: #<?=$row1['colorcode']?>;}</style>
+            <article class="project project-list-item project-list-item-ga<?=$row1['id']?>">
+                <a class="thumb-container" href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>" title="<?=$row1['name']?>">
+                    <img width="101%" height="101%" src="album/<?=$row1['file1']?>" alt="<?=$row1['alt']?>" />    
+                </a>
 
+<?
+				if($row1['id'] == $id){
+?>				                
+                <a class="hover-container trans-btn" href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>" style="background-color: #<?=$row1['colorcode']?>; opacity:0.8;">
+<?
+				}	else	{
+?>				                
+                <a class="hover-container trans-btn" href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>">
+<?					
+				}
+?>                  
+                    <div class="hover trans-btn"></div>
+                </a>
+                <a class="thumb-container thumb-container-type" href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>" style="color:#FFF;">
+                    <div class="title"><div class="title_01"><?=$row1['title']?></div></div>
+                </a>
+                <a class="thumb-container thumb-container-type2" href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>" style="color:#FFF;">
+                    <div class="boxgrid captionfull">
+                        <div class="cover boxcaption"><div class="title"><div class="title_02"><?=$row1['title2']?></div></div></div>
+                    </div>
+                </a>
+
+            </article>
+            <!-- 0<?=$i?> -->
+        </li>
 <?	
-		}	else	{
-?>
-        <style>
-		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
-        </style>
-        <a href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>">
-        	<div class="pic_block b<?=$i?>" data-eng="<?=$row1['title']?>" data-zh="<?=$row1['title2']?>"></div>
-		</a>
-
-<?		
-		}	
 		$i++;
 	}
-?>        
-		<!--
-        <style>
-		.pic_block.b2{ background:url(proj_category/1441947858.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b2:hover:after{ background-color: rgba(117,152,165,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b2" data-eng="Residential2" data-zh="室內設計2"></div></a>
-        <style>
-		.pic_block.b3{ background:url(proj_category/1441948333.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b3:hover:after{ background-color: rgba(63,66,68,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b3" data-eng="Residential3" data-zh="室內設計3"></div></a>
-        <style>
-		.pic_block.b4{ background:url(proj_category/1441948962.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b4:hover:after{ background-color: rgba(72,88,67,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b4" data-eng="Residential4" data-zh="室內設計4"></div></a>
-		
-		<style>
-		.pic_block.b5{ background:url(proj_category/1441946886.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b5:hover:after{ background-color: rgba(72,88,67,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b5" data-eng="Residential1" data-zh="室內設計1"></div></a>
-        <style>
-		.pic_block.b6{ background:url(proj_category/1441948971.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b6:hover:after{ background-color: rgba(63,66,68,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b6" data-eng="Residential2" data-zh="室內設計2"></div></a>
-        <style>
-		.pic_block.b7{ background:url(proj_category/1441948128.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b7:hover:after{ background-color: rgba(117,152,165,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b7" data-eng="Residential3" data-zh="室內設計3"></div></a>
-        <style>
-		.pic_block.b8{ background:url(proj_category/1441947151.jpg) no-repeat top left; background-size:100% 100%;}
-		.pic_block.b8:hover:after{ background-color: rgba(167,167,154,.8);}
-        </style>
-        <a href="projects_02.php?category=14&id=28"><div class="pic_block b8" data-eng="Residential4" data-zh="室內設計4"></div></a>
-        -->
-        
+?>
+          
+        </ol>
     </div>	
 	
     <!-- menu-->

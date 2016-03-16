@@ -24,6 +24,12 @@
 		exit;
 	}	
 	*/
+
+	$textColor = xwaterfrom_proj_category2_titlecolorr1($Conn);
+	$sql1  = "select * from waterfrom_proj2_category where ";
+	$sql1 .= "pub = 1 and ";				
+	$sql1 .= "lang = 'tw' ";
+	$sql1 .= "order by name desc";		
 ?>	
 <!DOCTYPE html>
 <!--[if IE 8 ]><html lang="en" class="ie8"><![endif]-->
@@ -52,7 +58,30 @@
     <link rel="stylesheet" type="text/css" href="css_new/1900/style_1900.css" media="screen and (min-width: 1900px)">
     <link rel="stylesheet" type="text/css" href="css_new/1200/style_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
     <link rel="stylesheet" type="text/css" href="css_new/980/style_980.css" media="screen and (max-width: 1200px)">  
-	
+<?
+	$i = 0;
+	$rl1 = mysql_query($sql1, $Conn);	
+	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){		
+		if($id == $row1['id']){
+			break;
+		}
+		$i++;
+	}
+?>	
+    <script>
+	$(function(){
+		$('.content3').scrollTop($(window).height()/4*<?=$i?>);
+		/*mars 這邊是控制右側十格進場時要跑到哪格*/
+		return false;
+		
+		$(window).resize(function() {
+			$('.content3').scrollTop($(window).height()/4*<?=$i?>);
+			/*mars 這邊是控制右側十格進場時要跑到哪格*/
+			return false;
+		});
+	});
+	</script>
+    	
 	<!-- menu  -->
     <script>
 		$(document).ready(function(){
@@ -89,44 +118,52 @@
     </script>
     <!-- menu  -->
 	
-	<script language="javascript">
-		$(document).ready(function(){
-			if ( $(window).width() >= 1900 ){
-				$.getScript("js_new/1900/project_10_1900.js");
-			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
-				$.getScript("js_new/1200/project_10_1200.js");
-				//alert("1900~1200");
-			} else {
-				$.getScript("js_new/980/project_10_980.js");
-			}
-			
-			$(window).resize(function() {
-				if ( $(window).width() >= 1900 ){
-					$.getScript("js_new/1900/project_10_1900.js");
-				} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
-					$.getScript("js_new/1200/project_10_1200.js");
-				} else {
-					$.getScript("js_new/980/project_10_980.js");
-				}
-			});
-		});
-    </script>
+	<link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900_02.css" media="screen and (min-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200_02.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980_02.css" media="screen and (max-width: 1200px)">
     
-    <link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900.css" media="screen and (min-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980.css" media="screen and (max-width: 1200px)">
-        	    
-
-	<!-- 作品小圖文字動畫 -->
-	<script type="text/javascript">
-        $(document).ready(function(){
-            $('.boxgrid.captionfull').hover(function(){
-                $(".cover", this).stop().animate({top:'0px'},{queue:false,duration:350});
-                }, function() {
-                    $(".cover", this).stop().animate({top:'350px'},{queue:false,duration:350});
-            });	
-        });
-    </script>
+    <script>
+	$(document).ready(function(){
+		//alert(($(window).height()-40)/4);
+		
+		if ( $(window).width() >= 1900 ){
+			windowWidth=($(window).height()-80)/4;
+			windowRight=($(window).height()-80)/4+40;
+		} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+			windowWidth=($(window).height()-40)/4;
+			windowRight=($(window).height()-40)/4+28;
+		} else {
+			windowWidth='155.75';
+			windowRight='184.75';
+		}
+		$(".content,.content2,.content3").animate({
+			width:windowWidth+'px'
+		},0);
+		$(".content2").animate({
+			right:windowRight+'px'
+		},0);
+		
+		$(window).resize(function() {
+			if ( $(window).width() >= 1900 ){
+				windowWidth=($(window).height()-80)/4;
+				windowRight=($(window).height()-80)/4+40;
+			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+				windowWidth=($(window).height()-40)/4;
+				windowRight=($(window).height()-40)/4+28;
+			} else {
+				windowWidth='155.75';
+				windowRight='184.75';
+			}
+			$(".content,.content2,.content3").animate({
+				width:windowWidth+'px'
+			},0);
+			$(".content2").animate({
+				right:windowRight+'px'
+			},0);
+		});
+		
+	});
+	</script>
     
 </head>
 <body>
@@ -135,43 +172,51 @@
     
     <!-- 十格作品 -->
     <div class="content3" id="scrollable_div1">
-        <input value="activate scrollator" id="activate_scrollator1" type="image" src="images/white.png" style="width:0px; height:0px; display:none;">
-        
-    	<ol class="projects-list">
+    	<input value="activate scrollator" id="activate_scrollator1" type="image" src="images/white.png" style="width:0px; height:0px; display:none;">
+
 <?
-			$textColor = xwaterfrom_proj_category2_titlecolorr1($Conn);
-			$sql1  = "select * from waterfrom_proj2_category where ";
-			$sql1 .= "pub = 1 and ";				
-			$sql1 .= "lang = 'tw' ";
-			$sql1 .= "order by name desc";	
 			
-			$rl1 = mysql_query($sql1, $Conn);
-			//$row1 = mysql_fetch_array($rl1, MYSQL_ASSOC);	
-			$i = 1;
-			while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){	
-?>        
-        	<li>
-            	<!-- 0<?=$i?> -->
-                <style type="text/css">.project-list-item.project-list-item-ga<?=$row1['id']?> .hover-container:before{background-color: #<?=$row1['colorcode']?>;}</style>
-                <article class="project project-list-item project-list-item-ga<?=$row1['id']?>">
-                    <a class="thumb-container current" href="press_02.php?category=<?=$row1['id']?>" title="">
-                        <img width="101%" height="101%" src="proj2_category/<?=$row1['file1']?>" alt="<?=$row1['alt']?>" />    
-                    </a>
-                    <a class="hover-container trans-btn" href="press_02.php?category=<?=$row1['id']?>">
-                        <div class="hover trans-btn"></div>
-                    </a>
-                    <a class="thumb-container thumb-container-type" href="press_02.php?category=<?=$row1['id']?>" style="color:#<?=$textColor?>;">
-                    	<div class="title"><div class="title_01"><?=$row1['name']?></div></div>
-                    </a>
-                </article>
-                <!-- 0<?=$i?> -->
-            </li>
-<?
-		$i++;
+		$rl1 = mysql_query($sql1, $Conn);
+		//$row1 = mysql_fetch_array($rl1, MYSQL_ASSOC);	
+		$i = 1;
+		while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){	
+		
+			if($id == ""){
+				$id = $row1['id'];	
 			}
-?>                
-          
-        </ol>
+	
+			if($id == $row1['id']){	
+?>   
+		
+		<style>
+		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
+		@media screen and (min-width: 1900px) {
+			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:55px;}
+		}
+		
+		@media screen and (min-width: 1200px) and (max-width: 1900px) {
+			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:40px;}   
+		}
+		
+		@media screen and (max-width: 1200px) {
+			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:30px;}  
+		}
+        </style>
+        <div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>"></div>
+<?		}	else	{	?>        
+        <style>
+		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
+        </style>
+        <a href="press_02.php?category=<?=$row1['id']?>"><div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>"></div></a>
+
+<?
+			}
+			$i++;
+		}
+?>         
+		
     </div>
     
     <!-- menu -->

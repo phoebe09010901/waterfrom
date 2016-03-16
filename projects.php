@@ -40,59 +40,62 @@
     <link rel="stylesheet" type="text/css" href="css_new/1900/style_1900.css" media="screen and (min-width: 1900px)">
     <link rel="stylesheet" type="text/css" href="css_new/1200/style_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
     <link rel="stylesheet" type="text/css" href="css_new/980/style_980.css" media="screen and (max-width: 1200px)">
-    
-    <script language="javascript">
-		$(document).ready(function(){
-			if ( $(window).width() >= 1900 ){
-				$.getScript("js_new/1900/project_10_1900.js");
-			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
-				$.getScript("js_new/1200/project_10_1200.js");
-				//alert("1900~1200");
-			} else {
-				$.getScript("js_new/980/project_10_980.js");
-			}
-			
-			$(window).resize(function() {
-				if ( $(window).width() >= 1900 ){
-					$.getScript("js_new/1900/project_10_1900.js");
-				} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
-					$.getScript("js_new/1200/project_10_1200.js");
-				} else {
-					$.getScript("js_new/980/project_10_980.js");
-				}
-			});
-		});
-    </script>
-    
-    <link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900.css" media="screen and (min-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
-    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980.css" media="screen and (max-width: 1200px)">
-        	    
-
-	<!-- 作品小圖文字動畫 -->
-	<script type="text/javascript">
-        $(document).ready(function(){
-            $('.boxgrid.captionfull').hover(function(){
-                $(".cover", this).stop().animate({top:'0px'},{queue:false,duration:350});
-                }, function() {
-                    $(".cover", this).stop().animate({top:'350px'},{queue:false,duration:350});
-            });	
-        });
-    </script>
 	
+	<link rel="stylesheet" type="text/css" href="css_new/1900/projects_10_1900_02.css" media="screen and (min-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/1200/projects_10_1200_02.css" media="screen and (min-width: 1200px) and (max-width: 1900px)">
+    <link rel="stylesheet" type="text/css" href="css_new/980/projects_10_980_02.css" media="screen and (max-width: 1200px)">
+    
+    <script>
+	$(document).ready(function(){
+		//alert(($(window).height()-40)/4);
+		
+		if ( $(window).width() >= 1900 ){
+			windowWidth=($(window).height()-80)/4;
+			windowRight=($(window).height()-80)/4+40;
+		} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+			windowWidth=($(window).height()-40)/4;
+			windowRight=($(window).height()-40)/4+28;
+		} else {
+			windowWidth='155.75';
+			windowRight='184.75';
+		}
+		$(".content,.content2,.content3").animate({
+			width:windowWidth+'px'
+		},0);
+		$(".content2").animate({
+			right:windowRight+'px'
+		},0);
+		
+		$(window).resize(function() {
+			if ( $(window).width() >= 1900 ){
+				windowWidth=($(window).height()-80)/4;
+				windowRight=($(window).height()-80)/4+40;
+			} else if ( $(window).width() < 1900 && $(window).width() > 1200 ){
+				windowWidth=($(window).height()-40)/4;
+				windowRight=($(window).height()-40)/4+28;
+			} else {
+				windowWidth='155.75';
+				windowRight='184.75';
+			}
+			$(".content,.content2,.content3").animate({
+				width:windowWidth+'px'
+			},0);
+			$(".content2").animate({
+				right:windowRight+'px'
+			},0);
+		});
+		
+	});
+	</script>
     
 </head>
 
 <body>
 
-
 <div class="wapper_01">
    
     <!-- 十格作品 -->
-    <div class="content">
-    	<ol class="projects-list">
-        	<li>
-    
+    <div class="content" style=" overflow-y:hidden;">
 <?
 	$textColor = xwaterfrom_proj_category_titlecolorr1($Conn);
 	$sql1 = "select * from waterfrom_proj_category where lang='tw' order by sort asc limit 0, 4";	
@@ -110,44 +113,43 @@
 		$rowA1 = mysql_fetch_array($rlA1, MYSQL_ASSOC);	
 		
 		$album_id = $rowA1['id'];	
-?>
-            	<!-- 0<?=$i?> -->
-                <style type="text/css">.project-list-item.project-list-item-ga<?=$row1['id']?> .hover-container:before{background-color: #<?=$row1['colorcode']?>;}</style>
-                <article class="project project-list-item project-list-item-ga<?=$row1['id']?>">
-                    <a class="thumb-container" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
-                        <img width="101%" height="101%" src="proj_category/<?=$row1['file1']?>" alt="<?=$row1['alt']?>" />    
-                    </a>
-                    <a class="hover-container trans-btn" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
-                        <div class="hover trans-btn"></div>
-                    </a>
-                    <a class="thumb-container thumb-container-type" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>" style="color:#<?=$textColor?>;">
-                    	<div class="title"><div class="title_01"><?=$row1['name']?></div></div>
-                    </a>
-                    <a class="thumb-container thumb-container-type2" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>" style="color:#<?=$textColor?>;">
-                    	<div class="boxgrid captionfull" id="boxgrid">
-                            <div class="cover boxcaption"><div class="title"><div class="title_02"><?=$row1['name2']?></div></div></div>
-                        </div>
-                    </a>
-                </article>
-                <!-- 0<?=$i?> -->
-            </li>
+?>		
+		<style>
+		.pic_block.b<?=$i?>{ background:url(proj_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%; font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
+        </style>
+        <a href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
+        	<div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>" data-zh="<?=$row1['name2']?>"></div>
+        </a>
 <?	
 		$i++;
 	}
-?>    
-            </li>
-        </ol>
+?>
+		<!--        
+        <style>
+		.pic_block.b2{ background:url(proj_category/1441947858.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b2:hover:after{ background-color: rgba(117,152,165,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b2" data-eng="Residential2" data-zh="室內設計2"></div></a>
+        <style>
+		.pic_block.b3{ background:url(proj_category/1441948333.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b3:hover:after{ background-color: rgba(63,66,68,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b3" data-eng="Residential3" data-zh="室內設計3"></div></a>
+        <style>
+		.pic_block.b4{ background:url(proj_category/1441948962.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b4:hover:after{ background-color: rgba(72,88,67,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b4" data-eng="Residential4" data-zh="室內設計4"></div></a>
+        -->
     </div>
-
-    <div class="content2">
-    	<ol class="projects-list">
-        	<li>
     
+    <div class="content2" style=" overflow-y:hidden;">
 <?
 	$sql1 = "select * from waterfrom_proj_category where lang='tw' order by sort asc limit 4, 4";	
 	$rl1 = mysql_query($sql1, $Conn);
 	//$row1 = mysql_fetch_array($rl1, MYSQL_ASSOC);	
-	$i = 1;
+	$i = 5;
 	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){	
 		$sqlA1  = "select * from waterfrom_album where ";	
 		$sqlA1 .= "category = '" . $row1['id'] . "' and ";
@@ -159,35 +161,38 @@
 		$rowA1 = mysql_fetch_array($rlA1, MYSQL_ASSOC);	
 		
 		$album_id = $rowA1['id'];
-?>
-            	<!-- 0<?=$i?> -->
-                <style type="text/css">.project-list-item.project-list-item-ga<?=$row1['id']?> .hover-container:before{background-color: #<?=$row1['colorcode']?>;}</style>
-                <article class="project project-list-item project-list-item-ga<?=$row1['id']?>">
-                    <a class="thumb-container" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
-                        <img width="101%" height="101%" src="proj_category/<?=$row1['file1']?>" alt="<?=$row1['alt']?>" />    
-                    </a>
-                    <a class="hover-container trans-btn" href="projects_02.php?category=<?=$row1['id']?>">
-                        <div class="hover trans-btn"></div>
-                    </a>
-                    <a class="thumb-container thumb-container-type" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>" style="color:#<?=$textColor?>;">
-                    	<div class="title"><div class="title_01"><?=$row1['name']?></div></div>
-                    </a>
-                    <a class="thumb-container thumb-container-type2" href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>" style="color:#<?=$textColor?>;">
-                    	<div class="boxgrid captionfull">
-                        	<div class="cover boxcaption"><div class="title"><div class="title_02"><?=$row1['name2']?></div></div></div>
-                        </div>
-                    </a>
-                </article>
-                <!-- 0<?=$i?> -->
-            </li>
+?>		
+		<style>
+		.pic_block.b<?=$i?>{ background:url(proj_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%; font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
+        </style>
+        <a href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
+        	<div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>" data-zh="<?=$row1['name2']?>"></div>
+		</a>
 <?	
 		$i++;
 	}
-?>    
-            </li>
-        </ol>
-    </div>    
+?>            
+        <!--
+        <style>
+		.pic_block.b6{ background:url(proj_category/1441948971.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b6:hover:after{ background-color: rgba(63,66,68,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b6" data-eng="Residential2" data-zh="室內設計2"></div></a>
+        <style>
+		.pic_block.b7{ background:url(proj_category/1441948128.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b7:hover:after{ background-color: rgba(117,152,165,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b7" data-eng="Residential3" data-zh="室內設計3"></div></a>
+        <style>
+		.pic_block.b8{ background:url(proj_category/1441947151.jpg) no-repeat top left; background-size:100% 100%;}
+		.pic_block.b8:hover:after{ background-color: rgba(167,167,154,.8);}
+        </style>
+        <a href="projects_02.php?category=14&id=28"><div class="pic_block b8" data-eng="Residential4" data-zh="室內設計4"></div></a>
+        -->
+    </div>
 
+    
 
     
     
@@ -217,7 +222,7 @@
 </html>
         
 <script src="js/jquery-1.11.1.min.js"></script>
-
+<!--
 <script>
 	$(document).ready(function(){
 		$(document).bind("contextmenu",function(event){
@@ -225,3 +230,4 @@
 		});
 	});
 </script>
+-->
