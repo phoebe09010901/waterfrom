@@ -1,0 +1,26 @@
+While initializing your plugins use the below code 
+
+for ocean skin :
+
+$("body").flati({
+		skin : "ocean",
+		containerBg : "#1e8bc3",
+		containerBorder : "#6bb9f0",
+		iconBg : "#6bb9f0",
+		iconHover : "#003380"
+});
+
+--------------------------------------------------------------
+
+for summer skin :
+
+$("body").flati({
+		skin : "summer",
+		containerBg : "#ffb24d",
+		containerBorder : "#fff39e",
+		iconBg : "#fff39e",
+		iconHover : "#d45500"
+
+});
+
+Make sure required images are in the folder "skin/skin-name"

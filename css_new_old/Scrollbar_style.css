@@ -1,0 +1,39 @@
+
+
+/* Scrollbar Div */
+#scrollbar { width: 200px; height: 200px; overflow-y: auto;}
+
+/* The Scrollbar itself */
+#scrollbar::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+ 
+/* The background of the Scrollbar */
+#scrollbar::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0.1);
+   
+}
+ 
+/* The handle (thumb ) of the Scrollbar */
+#scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.8);
+    
+}
+
+/* The corner of the Scrollbar. Appears when both Vertical and Horizontal scrollbars are activated */
+#scrollbar::-webkit-scrollbar-corner {
+	background-color: rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+
+
+/* Demo Styling */
+div:first-child { position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; margin: auto; padding: 20px; }
+p { padding-bottom: 20px; }
