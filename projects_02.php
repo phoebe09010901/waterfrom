@@ -482,7 +482,7 @@
 		if($id == $row1['id']){
 ?>   		
 		<style>
-		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
 		.pic_block.b<?=$i?>:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
 		@media screen and (min-width: 1900px) {
 			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:55px;}
@@ -502,7 +502,7 @@
 		}	else	{
 ?>
         <style>
-		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(album/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
 		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
         </style>
         <a href="projects_02.php?category=<?=$category?>&id=<?=$row1['id']?>">

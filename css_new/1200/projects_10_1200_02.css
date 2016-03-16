@@ -35,6 +35,7 @@
 	right: 15px;
 	color: #fff;
 	content: attr(data-eng);
+	font-family: "UniversNextPro-Light";
 	font-size:14px;
 	z-index: 1;
 	text-decoration:none;
@@ -43,6 +44,7 @@
 	left: 0;
 	top: 0;
 	content: attr(data-zh);
+	font-family: 'Microsoft JhengHei', 微軟正黑體,sans-serif;
 	font-size:11px;
 	display: block;
 	position: absolute;

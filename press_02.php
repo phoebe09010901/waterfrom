@@ -61,7 +61,8 @@
 <?
 	$i = 0;
 	$rl1 = mysql_query($sql1, $Conn);	
-	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){		
+	while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){
+		echo "//".$row1['id'].", ";	
 		if($id == $row1['id']){
 			break;
 		}
@@ -189,7 +190,7 @@
 ?>   
 		
 		<style>
-		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;
 		.pic_block.b<?=$i?>:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
 		@media screen and (min-width: 1900px) {
 			.pic_block.b<?=$i?>:after{ width:100%; height:100%; background-color: rgba(<?=$row1['colorcode2']?>,.8); padding-top:55px;}
@@ -206,7 +207,7 @@
         <div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>"></div>
 <?		}	else	{	?>        
         <style>
-		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
 		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
         </style>
         <a href="press_02.php?category=<?=$row1['id']?>"><div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>"></div></a>

@@ -149,7 +149,7 @@
 		while($row1 = mysql_fetch_array($rl1, MYSQL_ASSOC)){	
 ?>  		
 		<style>
-		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;  font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(proj2_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
 		.pic_block.b<?=$i?>:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
         </style>
         <a href="press_02.php?category=<?=$row1['id']?>"><div class="pic_block b<?=$i?>" data-eng="<?=$row1['name']?>"></div></a>

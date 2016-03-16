@@ -115,7 +115,7 @@
 		$album_id = $rowA1['id'];	
 ?>		
 		<style>
-		.pic_block.b<?=$i?>{ background:url(proj_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%; font-family: "UniversNextPro-Light";}
+		.pic_block.b<?=$i?>{ background:url(proj_category/<?=$row1['file1']?>) no-repeat top left; background-size:100% 100%;}
 		.pic_block.b<?=$i?>:hover:after{ background-color: rgba(<?=$row1['colorcode2']?>,.8);}
         </style>
         <a href="projects_02.php?category=<?=$row1['id']?>&id=<?=$album_id?>">
